@@ -43,7 +43,7 @@ public class Server {
         }
     }
 
-    public boolean ClientMessage(String username, String message){
+    public boolean clientMessage(String username, String message){
         for (ClientHandler c : clients) {
             if (c.getUsername().equals(username)) {
                 c.sendMsg(message);
