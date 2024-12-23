@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Arrays;
 
 
 public class ClientHandler {
@@ -36,6 +37,14 @@ public class ClientHandler {
                             sendMsg("/exitok");
                             break;
                         }
+                        String[] msgarray = message.split(" ", 3);
+                        if (msgarray[0].equals("/w")) {
+                            if (!server.ClientMessage (msgarray[1], username + " : " + msgarray[2])) {
+                                sendMsg("Ошибка: клиент с именем " + msgarray[1] + " не найден");
+                            }
+                            sendMsg(username + " : " + msgarray[2]);
+                        } else
+                            sendMsg("Ошибка: неверный формат сообщения\n" + username + " : " + message);
                     } else {
                         server.broadcastMessage(username + " : " + message);
                     }
